@@ -1,5 +1,5 @@
 <?php
-class Alunno {
+class Alunno implements JsonSerializable {
     protected $name;
     protected $surname;
     protected $age;
@@ -31,5 +31,8 @@ class Alunno {
     }
     public function allInfo() {
         return "Name: $this->name, Surname: $this->surname, Age: $this->age";
+    }
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

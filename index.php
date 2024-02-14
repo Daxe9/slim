@@ -16,16 +16,22 @@ $app->get('/', function (Request $request, Response $response, $args) {
 $app->get('/alunni', function (Request $request, Response $response, $args) {
     $vcia = new Classe("5CIA");
     $allAlunni = $vcia->getAllAlunni();
-    $response->getBody()->write($allAlunni);
+    $response->getBody()->write(json_encode(
+        $vcia,
+        JSON_PRETTY_PRINT
+    ));
     return $response;
 });
 $app->get('/alunni/{name}', function (Request $request, Response $response, $args) {
     $vcia = new Classe("5CIA");
     $alunno = $vcia->getAlunno($args["name"]);
     if(is_null( $alunno )) {
-        $response->getBody()->write("ciao");
+        $response->getBody()->write("ERRORE");
     } else {
-        $response->getBody()->write($alunno->allInfo());
+        $response->getBody()->write(json_encode(
+            $alunno,
+            JSON_PRETTY_PRINT
+        ));
     }
     return $response;
     
